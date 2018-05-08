@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Сессия и jsp.</h2>
-<form action="page1.jsp" method="post" accept-charset="UTF-8">
+<form action="page1.jsp" accept-charset="UTF-8">
     <p>Введите Ваше имя
         <input type="text" name="firstname"> </p>
     <input type="submit" value="Отправить">

@@ -10,11 +10,8 @@
 </head>
 <body>
 <h2>Поздравляю!</h2>
-<p> Добро пожаловать, </p>
+<p> Добро пожаловать, <%=(session.getAttribute("name3") + " " +
+        session.getAttribute("name") + " " +
+        session.getAttribute("name2"))%></p>
 </body>
-<%
-    PrintWriter oute = response.getWriter();
-    oute.println(session.getAttribute("name3") + " " +
-            session.getAttribute("name") + " " +
-            session.getAttribute("name2")); %>
 </html>

@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Второй этап</h2>
-<% String name = new String(request.getParameter("firstname").getBytes("iso-8859-1"), "utf8");
+<% String name = new String(request.getParameter("firstname"));
    session.setAttribute("name", name);
 
 %>

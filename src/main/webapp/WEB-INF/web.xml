@@ -4,4 +4,26 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  
+
+  <filter>
+    <filter-name>Filter1</filter-name>
+    <filter-class>ru.babudzhi.Filter1</filter-class>
+
+    <init-param>
+      <param-name>test-param</param-name>
+      <param-value>Initialization Parameter</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>Filter1</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <listener>
+    <listener-class>ru.babudzhi.MyContextListener</listener-class>
+  </listener>
+
+
 </web-app>

@@ -11,7 +11,7 @@
     session.setAttribute("name2", name2);
 
 %>
-<form action="page3.jsp" accept-charset="UTF-8">
+<form action="welcome" accept-charset="UTF-8" method="post">
     <p>Введите Вашу фамилию
         <input type="text" name="lastname"> </p>
     <input type="submit" value="Отправить">

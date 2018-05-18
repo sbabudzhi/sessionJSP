@@ -32,9 +32,8 @@ public class Servlet1 extends HttpServlet {
                     "<p>Добро пожаловать, " +
                     session.getAttribute("name3") + " " + session.getAttribute("name") + " " + session.getAttribute("name2") + "</p>"
             );
-
-
-            try (Connection db = DriverManager.getConnection("jdbc:h2:~/test", "sa", "")) {
+            Class.forName("org.h2.Driver");
+            try (Connection db = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "")) {
                 try (Statement dataQuery = db.createStatement()) {
                     dataQuery.execute(CREATE_QUERY);
                     dataQuery.execute(DATA_QUERY);
@@ -45,7 +44,7 @@ public class Servlet1 extends HttpServlet {
                     ResultSet rs = query.executeQuery();
                     while (rs.next()) {
                         System.out.println(String.format("%s, %s!",
-                                rs.getString(1),
+                                rs.getString(2),
                                 rs.getString("name1")));
                     }
                     rs.close();
@@ -57,6 +56,8 @@ public class Servlet1 extends HttpServlet {
 
         } catch (IOException e) {
 
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

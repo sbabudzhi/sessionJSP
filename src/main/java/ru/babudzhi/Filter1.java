@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Filter1 implements Filter {
 
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         String testParam = filterConfig.getInitParameter("test-param");
         System.out.println("Test " + testParam);
     }

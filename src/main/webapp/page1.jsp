@@ -7,7 +7,7 @@
 <body>
 <h2>Второй этап</h2>
 <% String name = new String(request.getParameter("firstname"));
-   session.setAttribute("name", name);
+    session.setAttribute("name", name);
 
 %>
 <form action="page2.jsp" accept-charset="UTF-8">

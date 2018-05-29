@@ -25,8 +25,4 @@
     <listener-class>ru.babudzhi.MyContextListener</listener-class>
   </listener>
 
-  <listener>
-    <listener-class>org.h2.server.web.DbStarter</listener-class>
-  </listener>
-
-</web-app>
+ </web-app>

@@ -16,25 +16,37 @@ import org.h2.Driver;
 @WebServlet("/welcome")
 public class Servlet1 extends HttpServlet {
 
+    String dname3 = "";
+    String dname2 = "";
+    String dname1 = "";
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         try {
             /* возвращается ссылка на сессию для текущего пользователя (если сессия еще не существует, то она при этом создается) */
             response.setContentType("text/html;charset=utf8");
             HttpSession session = request.getSession();
             PrintWriter out = response.getWriter();
 
-            String name3 = new String(request.getParameter("lastname").getBytes("iso-8859-1"), "utf8");
-            session.setAttribute("name3", name3);
-
+            dname3 = new String(request.getParameter("lastname").getBytes("iso-8859-1"), "utf8");
+            session.setAttribute("name3", dname3);
+            dname1 = (String) session.getAttribute("name");
+            dname2 = (String) session.getAttribute("name2");
+            dname3 = (String) session.getAttribute("name3");
 
             out.println("<h2>Поздравляю с третьим этапом!</h2> " +
                     "<p>Добро пожаловать, " +
                     session.getAttribute("name3") + " " + session.getAttribute("name") + " " + session.getAttribute("name2") + "</p>"
             );
-            Class.forName("org.h2.Driver");
+
+            try {
+                DriverManager.registerDriver(new org.h2.Driver());
+                } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
             try (Connection db = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "")) {
                 try (Statement dataQuery = db.createStatement()) {
+                    dataQuery.execute(DELETE_QUERY);
                     dataQuery.execute(CREATE_QUERY);
                     dataQuery.execute(DATA_QUERY);
                 }
@@ -43,8 +55,8 @@ public class Servlet1 extends HttpServlet {
                              db.prepareStatement("SELECT * FROM TEST123")) {
                     ResultSet rs = query.executeQuery();
                     while (rs.next()) {
-                        System.out.println(String.format("%s, %s!",
-                                rs.getString(2),
+                        System.out.println(String.format("%s  %s %s ",
+                                rs.getString(1),
                                 rs.getString("name1")));
                     }
                     rs.close();
@@ -55,9 +67,6 @@ public class Servlet1 extends HttpServlet {
             }
 
         } catch (IOException e) {
-
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -65,7 +74,8 @@ public class Servlet1 extends HttpServlet {
                 "CREATE TABLE TEST123 (name3 VARCHAR(45), name1 VARCHAR(45), name2 varchar (45))";
 
         private static final String DATA_QUERY =
-                "INSERT INTO TEST123 VALUES('бабуджи', 'светлана', 'юрьевна')";
-
+                "INSERT INTO TEST123 VALUES(dname3, dname1, dname2)";
+        private  static final String DELETE_QUERY =
+                "DROP TABLE IF EXISTS TEST123";
 
 }
